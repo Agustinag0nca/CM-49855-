@@ -1,4 +1,4 @@
-let nombre = prompt("Ingresa tu nombre");
+let nombre = prompt("Ingresa tu nombre") ?? "invitado";
 
 if (nombre.toLowerCase() === "silvia") {
     alert("Bienvenida Silvia");
@@ -11,9 +11,9 @@ function login() {
     let verificar = true;
 
     while (verificar && intentos < 3) {
-        let usuario = prompt("Ingrese su usuario (tiene 3 intentos):");
+        let usuario = prompt("Ingrese su usuario (tiene 3 intentos):") ?? "";
 
-        if (usuario && usuario.toLowerCase() === "silvia") {
+        if (usuario.toLowerCase() === "silvia") {
             alert("¡Bienvenido, querido Silvia!");
             verificar = false;
         } else {
@@ -26,6 +26,9 @@ function login() {
         alert("Usted ha superado los 3 intentos. Inténtelo más tarde.");
     }
 }
+
+// Llamada a la función login
+login();
 
 const hoy = new Date();
 console.log(hoy.toLocaleDateString());
@@ -40,16 +43,33 @@ if (title) {
 let container = document.getElementById("contenedor");
 if (container) {
     container.innerHTML = `
-        <form>
+        <form id="miForm">
             <h1>Formulario</h1>
             <h2>Ingresa tus datos</h2>
-            <input type="text">
-            <button>Enviar texto</button>
+            <input type="text" id="inputnombre">
+            <input type="text" id="inputedad">
+            <input type="text" id="inputsexo">
+            <button id="boton1">Enviar texto</button>
         </form>
     `;
 } else {
     console.log("No se encontró el elemento con ID 'contenedor'.");
 }
+
+let boton = document.getElementById("boton1");
+
+boton.addEventListener("click", () => alert("bienvenido estimado/a!"));
+
+document.getElementById("boton1").addEventListener("click", function(e) {
+    alert("Se ha enviado correctamente tu solicitud ");
+});
+
+let inputField = document.getElementById("miForm");
+inputField.addEventListener("input", function(event) {
+    event.preventDefault();
+    confirm("¿Desea ingresar un comentario a la web?");
+    console.log("comentó algo");
+});
 
 alert("Bienvenida a la página de diseño web más actualizada del país!");
 
@@ -89,8 +109,6 @@ if (consulta) {
             precio: parseFloat(precioProducto) // Convertir el precio a un número decimal
         };
     
-        // Agregar el nuevo producto
-    
         // Agregar el nuevo producto al array de productos
         productos.push(nuevoProducto);
     
@@ -112,7 +130,7 @@ if (consulta) {
             let listaProductos = document.getElementById("lista-productos");
             listaProductos.innerHTML = "";
             resultado.forEach(producto => {
-                listaProductos.innerHTML += `<li>${producto.nombre} - Precio: ${producto.precio}</li>`;
+                listaProductos.innerHTML +=`<li>${producto.nombre} - Precio: ${producto.precio}</li>`;
             });
         } else {
             let sugerencias = "Podrías probar con los siguientes diseños: Diseño web, Arreglos estéticos, Cursos, Crear dominio web, Generar aplicaciones";
@@ -140,7 +158,6 @@ if (consulta) {
     
         if (comprar) {
             alert("¡Gracias por tu compra!");
-        }
     
     
         const IVA = 1.22;
@@ -157,4 +174,39 @@ if (consulta) {
     
         calcularIva(200);
     }
+}
+
+
+const inputnombre = document.querySelector("#inputnombre");
+const inputedad = document.querySelector("#inputedad");
+const inputsexo = document.querySelector("#inputsexo");
+const Botonenviar = document.querySelector("#boton");
+
+function guardarForm() {
+    // Crear un objeto con los valores de los campos de entrada
+    let formData = {
+        nombre: inputnombre.value,
+        edad: inputedad.value,
+        sexo: inputsexo.value
+    };
+
+    // Convertir el objeto a una cadena JSON
+    let formDataJSON = JSON.stringify(formData);
+
+    // Guardar la cadena JSON en localStorage
+    localStorage.setItem("formData", formDataJSON);
+}
+
+Botonenviar.addEventListener("click", guardarForm);
+
+// Para recuperar los datos almacenados en localStorage y convertirlos de nuevo a un objeto JavaScript:
+let formDataJSON = localStorage.getItem("formData");
+if (formDataJSON) {
+    // Convertir la cadena JSON a un objeto JavaScript
+    let formData = JSON.parse(formDataJSON);
+
+    // Usar los datos como desees, por ejemplo:
+    inputnombre.value = formData.nombre;
+    inputedad.value = formData.edad;
+    inputsexo.value = formData.sexo;
 }
