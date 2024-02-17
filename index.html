@@ -1,32 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Design Club</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
-    
+    <h1 id="mensajeBienvenida"></h1>
 
-    <h1 id="title">¡Bienvenido a la página de diseño web más actualizada del país!</h1>
+    <div id="loginMessage"></div>
 
-    <input id="inputnombre" type="text">
-    <input id="inputedad" type="number">
-    <input id="inputsexo" type="text">
-    <button id="boton1">ingresar</button>
-    
-    <div id="contenedor"></div>
-    
-    <form id="miForm">
-        <label for="miCampoText">Inserte un comentario:</label>
-        <input type="text" name="miCampoText" id="miCampoText">
-        <button type="submit">Enviar</button>
-    </form>
-    
+    <div id="contenedor">
+        <form id="miForm">
+            <h1>Formulario</h1>
+            <h2>Ingresa tus datos</h2>
+            <input type="text" id="inputnombre" placeholder="Nombre">
+            <input type="text" id="inputusuario" placeholder="Usuario">
+            <button id="botonLogin">Iniciar Sesión</button>
+        </form>
+    </div>
 
-
-    <script src="main.js"></script>
-
-
+    <!-- Enlace al archivo JavaScript externo -->
+    <script src="script.js"></script>
 </body>
 </html>
