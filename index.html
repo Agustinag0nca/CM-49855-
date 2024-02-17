@@ -4,14 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Design Club</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
     <h1 id="mensajeBienvenida"></h1>
-
-    <div id="loginMessage"></div>
-
     <div id="contenedor">
         <form id="miForm">
             <h1>Formulario</h1>
@@ -20,9 +16,11 @@
             <input type="text" id="inputusuario" placeholder="Usuario">
             <button id="botonLogin">Iniciar Sesión</button>
         </form>
+        <h3 id="mostrarProductos">Productos: Maquetacion web, diseño estetico, reparacion de pagina, consultar otras dudas al respecto</h3>
+        <button id="consultaButton" class="boton1" class="iniciarConsulta">Consulta</button>
     </div>
 
-    <!-- Enlace al archivo JavaScript externo -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
