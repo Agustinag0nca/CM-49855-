@@ -1,130 +1,149 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Selección del botón de envío del formulario
-    let loginButton = document.getElementById("botonLogin");
+    // Manejar el envío del formulario de contacto
+    let formContacto = document.getElementById("formularioContacto");
+    if (formContacto) {
+        formContacto.addEventListener("submit", function(event) {
+            event.preventDefault(); // Evitar que se envíe el formulario automáticamente
 
-    // Cambiar el texto de bienvenida
-    let welcomeMessage = document.getElementById("mensajeBienvenida");
-    if (welcomeMessage) {
-        welcomeMessage.innerText = "¡Bienvenido a la página de diseño web más actualizada del país!";
-    } 
+            // Obtener los valores del formulario
+            let nombre = document.getElementById("nombre").value;
+            let correo = document.getElementById("correo").value;
+            let mensaje = document.getElementById("mensaje").value;
 
-    // Agregar evento click al botón 1
-    let button = document.getElementById("boton1");
-    if (button) {
-        button.addEventListener("click", function(e) {
-            Swal.fire("Se ha enviado correctamente tu solicitud");
+            // Aquí puedes agregar la lógica para enviar los datos del formulario (por ejemplo, a través de una solicitud AJAX)
+
+            // Mostrar mensaje de éxito al usuario
+            Swal.fire({
+                title: 'Mensaje enviado',
+                text: '¡Gracias por ponerte en contacto con nosotros!',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+
+            // Limpiar los campos del formulario
+            formContacto.reset();
         });
     }
 
-    let form = document.getElementById("miForm");
-    if (form) {
-        form.addEventListener("submit", function(event) {
-            event.preventDefault();
+    // Función para mostrar los precios de los servicios en una ventana emergente
+    function mostrarPrecios() {
+        let preciosText = obtenerPreciosTexto();
+        
+        // Mostrar ventana emergente con los precios
+        Swal.fire({
+            title: 'Precios de los servicios',
+            text: preciosText,
+            icon: 'info',
+            confirmButtonText: 'Cerrar'
+        });
+    }
+
+    // Función para obtener el texto con los precios de los servicios
+    function obtenerPreciosTexto() {
+        let preciosText = "Precios de los servicios\n";
+        let servicios = document.querySelectorAll("div#contenedor p");
+        servicios.forEach(servicio => {
+            let nombre = servicio.textContent.trim();
+            let precio = obtenerPrecioPorNombre(nombre);
+            preciosText += `${nombre}: $${precio}\n`;
+        });
+        return preciosText;
+    }
+
+    // Función para obtener el precio de un servicio por su nombre
+    function obtenerPrecioPorNombre(nombre) {
+        switch (nombre) {
+            case "Maquetacion Web":
+                return 90000;
+            case "Estetica Web":
+                return 40000;
+            case "Dominio Original":
+                return 80000;
+            case "Solicitar Arreglos":
+                return 50000;
+            case "Crear una Marca de Cero":
+                return 100000;
+            default:
+                return 0; // Precio por defecto si el servicio no está definido
+        }
+    }
+
+    // Agregar evento al botón de mostrar precios
+    let preciosButton = document.getElementById("precios1");
+    if (preciosButton) {
+        preciosButton.addEventListener("click", function() {
+            mostrarPrecios();
+        });
+    }
+
+    // Manejar el envío del formulario de inicio de sesión
+    let formLogin = document.getElementById("miForm");
+    if (formLogin) {
+        formLogin.addEventListener("submit", function(event) {
+            event.preventDefault(); // Evitar que se envíe el formulario automáticamente
+
+            // Mostrar mensaje de inicio de sesión
             Swal.fire({
                 title: 'Inicio de sesión',
-                text: '¡Has iniciado correctamente!',
-                icon: 'Smily',
-                showCancelButton: true,
+                text: '¡Has iniciado sesión correctamente!',
+                icon: 'success',
                 confirmButtonText: 'Ok',
             });
-
-            console.log("Comentó algo");
-
-            // Almacena el comentario en Local Storage como un objeto JSON
-            const comentario = {
-                texto: "Comentó algo",
-                fecha: new Date().toISOString()
-            };
-            localStorage.setItem("comentario", JSON.stringify(comentario));
         });
     }
 
-    // Recuperar el comentario almacenado en Local Storage
-    const comentarioGuardadoJSON = localStorage.getItem("comentario");
-    if (comentarioGuardadoJSON) {
-        const comentarioGuardado = JSON.parse(comentarioGuardadoJSON);
-        console.log("Comentario recuperado:", comentarioGuardado.texto);
-        console.log("Fecha:", comentarioGuardado.fecha);
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        let consultaButton = document.getElementById("consultaButton");
-        if (consultaButton) {
-            consultaButton.addEventListener("click", function() {
-                Swal.fire({
-                    title: 'Consulta',
-                    text: '¿Te puedo ayudar a encontrar el mejor diseño para tu empresa o negocio?',
-                    icon: 'question',
-                    showCancelButton: true,
-                    confirmButtonText: 'Sí',
-                    cancelButtonText: 'No'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        iniciarConsulta();
-                    }
-                });
-            });
-        }
-    });
-    
-    function iniciarConsulta() {
-        Swal.fire({
-            title: 'Diseño',
-            text: '¿Qué diseño te gustaría para tu nueva página web?',
-            input: 'text',
-            inputValidator: (value) => {
-                if (!value) {
-                    return 'Debes ingresar un diseño';
-                }
-            },
-            showCancelButton: true,
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Siguiente'
-        }).then((result1) => {
-            if (result1.isDismissed) return; // Si se cancela, termina la consulta
-            const design = result1.value;
-            
+    // Agregar evento al botón de consulta
+    let consultaButton = document.getElementById("consultaButton");
+    if (consultaButton) {
+        consultaButton.addEventListener("click", function() {
+            // Mostrar mensaje de consulta
             Swal.fire({
-                title: 'Negocio',
-                text: 'Elegí tu tipo de negocio:',
-                input: 'text',
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'Debes ingresar un tipo de negocio';
-                    }
-                },
+                title: 'Consulta',
+                text: '¿Te puedo ayudar a encontrar el mejor diseño para tu empresa o negocio?',
+                icon: 'question',
                 showCancelButton: true,
-                cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Enviar'
-            }).then((result2) => {
-                if (result2.isDismissed) return; // Si se cancela, termina la consulta
-                const businessType = result2.value;
-    
-                mostrarProductos(design, businessType);
-
-                document.addEventListener("DOMContentLoaded", function() {
-                    let productos = [
-                        { id: 1, nombre: "maquetacion web", precio: 90000 },
-                        { id: 2, nombre: "estetica web", precio: 40000 },
-                        { id: 3, nombre: "dominio original", precio: 80000 },
-                        { id: 4, nombre: "solicitar arreglos", precio: 50000 },
-                        { id: 5, nombre: "crear una marca de cero", precio: 100000 }
-                    ];
-                
-                    // Obtener el elemento h2 con id "precios"
-                    let preciosElement = document.getElementById("precios");
-                
-                    // Actualizar el contenido del elemento con los datos de los productos
-                    if (preciosElement) {
-                        preciosElement.innerHTML = "<ul>";
-                        productos.forEach(producto => {
-                            preciosElement.innerHTML += `<li>${producto.nombre}: $${producto.precio}</li>`;
-                        });
-                        preciosElement.innerHTML += "</ul>";
-                    }
-                });                
-
-                Swal.fire('Gracias por tu consulta!', '', 'success');
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Realizar la consulta
+                    Swal.fire({
+                        title: 'Diseño',
+                        text: '¿Qué diseño te gustaría para tu nueva página web?',
+                        input: 'text',
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'Debes ingresar un diseño';
+                            }
+                        },
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Siguiente'
+                    }).then((result1) => {
+                        if (result1.isConfirmed) {
+                            const design = result1.value;
+                            Swal.fire({
+                                title: 'Negocio',
+                                text: 'Elegí tu tipo de negocio (automovilístico, emprendimiento, contabilidad, supermercado):',
+                                input: 'text',
+                                inputValidator: (value) => {
+                                    if (!value) {
+                                        return 'Debes ingresar un tipo de negocio';
+                                    }
+                                },
+                                showCancelButton: true,
+                                cancelButtonText: 'Cancelar',
+                                confirmButtonText: 'Enviar'
+                            }).then((result2) => {
+                                if (result2.isConfirmed) {
+                                    const businessType = result2.value;
+                                    mostrarProductos(design, businessType);
+                                    Swal.fire('Gracias por tu consulta!', '', 'success');
+                                }
+                            });
+                        }
+                    });
+                }
             });
         });
     }

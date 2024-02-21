@@ -12,21 +12,41 @@
         <form id="miForm">
             <h1>Formulario</h1>
             <h2>Ingresa tus datos</h2>
-            <input type="text" id="inputnombre" placeholder="Nombre">
-            <input type="text" id="inputusuario" placeholder="Usuario">
+            <input type="text" id="inputnombre" name="nombre" placeholder="Nombre" required>
+            <input type="email" id="inputusuario" name="email" placeholder="Correo electrónico" required>
             <button id="botonLogin">Iniciar Sesión</button>
         </form>
 
         <div id="preciosContainer">
-            <h2 id="precios">Precios de los servicios</h2>
+            <h2>Precios de los servicios</h2>
             <ul id="listaPrecios"></ul>
         </div>
 
-        <h3 id="mostrarProductos"> Servicios: Maquetacion web, diseño estetico, reparacion de pagina, consultar otras dudas al respecto</h3>
-        <button id="consultaButton" class="boton1" class="iniciarConsulta">Consulta</button>
+        <h2>¿Quieres consultar precios de estos servicios?</h2> <!-- Corregido -->
+        <button id="precios1">Mostrar precios</button>
+
+        <p id="servicio1">Maquetación Web</p>
+        <p id="servicio2">Estética Web</p> <!-- Corregido -->
+        <p id="servicio3">Dominio Original</p>
+        <p id="servicio4">Solicitar Arreglos</p>
+        <p id="servicio5">Crear una Marca de Cero</p>
+        
+        <h3>Servicios: Maquetación web, diseño estético, reparación de página, consultar otras dudas al respecto</h3>
+        <button id="consultaButton" class="boton1 iniciarConsulta">Consulta</button>
+
+        <div id="contactoContainer">
+            <h2>Contacto</h2>
+            <form id="formularioContacto">
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre">
+                <input type="email" id="correo" name="correo" placeholder="Correo electrónico">
+                <textarea id="mensaje" name="mensaje" placeholder="Mensaje"></textarea>
+                <button type="submit">Enviar</button> <!-- Agregado el botón de enviar -->
+            </form>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
+
