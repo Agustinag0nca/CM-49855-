@@ -10,8 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
             let correo = document.getElementById("correo").value;
             let mensaje = document.getElementById("mensaje").value;
 
-            // Aquí puedes agregar la lógica para enviar los datos del formulario (por ejemplo, a través de una solicitud AJAX)
-
             // Mostrar mensaje de éxito al usuario
             Swal.fire({
                 title: 'Mensaje enviado',
@@ -48,32 +46,6 @@ document.addEventListener("DOMContentLoaded", function() {
             preciosText += `${nombre}: $${precio}\n`;
         });
         return preciosText;
-    }
-
-    // Función para obtener el precio de un servicio por su nombre
-    function obtenerPrecioPorNombre(nombre) {
-        switch (nombre) {
-            case "Maquetacion Web":
-                return 90000;
-            case "Estetica Web":
-                return 40000;
-            case "Dominio Original":
-                return 80000;
-            case "Solicitar Arreglos":
-                return 50000;
-            case "Crear una Marca de Cero":
-                return 100000;
-            default:
-                return 0; // Precio por defecto si el servicio no está definido
-        }
-    }
-
-    // Agregar evento al botón de mostrar precios
-    let preciosButton = document.getElementById("precios1");
-    if (preciosButton) {
-        preciosButton.addEventListener("click", function() {
-            mostrarPrecios();
-        });
     }
 
     // Manejar el envío del formulario de inicio de sesión
@@ -148,8 +120,70 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Función para mostrar los productos seleccionados
     function mostrarProductos(design, businessType) {
         console.log('Diseño seleccionado:', design);
         console.log('Tipo de negocio seleccionado:', businessType);
     }
+
+    // Función para mostrar notificaciones Toastify con estilos
+    let totalItemsCarrito = 0;
+
+    // Función para actualizar el contador de ítems en el icono del carrito
+    function actualizarContadorCarrito() {
+        const contadorCarrito = document.getElementById('contadorCarrito');
+        contadorCarrito.textContent = totalItemsCarrito;
+    }
+
+    // Función para mostrar notificaciones Toastify con estilos
+    function mostrarNotificacion(texto) {
+        var notificacion = document.createElement('div');
+        notificacion.textContent = texto;
+        notificacion.style.backgroundColor = '#007bff';
+        notificacion.style.color = '#fff';
+        notificacion.style.borderRadius = '5px';
+        notificacion.style.fontFamily = 'Arial, sans-serif';
+        notificacion.style.fontSize = '16px';
+        notificacion.style.padding = '10px 20px';
+        notificacion.style.marginBottom = '10px';
+        notificacion.style.position = 'fixed';
+        notificacion.style.top = '20px';
+        notificacion.style.right = '20px';
+        notificacion.style.zIndex = '1000';
+        notificacion.style.animation = 'push-up 0.5s ease-in-out'; // Animación push-up
+        document.body.appendChild(notificacion);
+        setTimeout(function() {
+            notificacion.remove(); // Eliminar la notificación después de 3 segundos
+        }, 3000);
+    }
+
+    // Función para agregar un ítem al carrito
+    function agregarItemAlCarrito(item) {
+        const listaCarrito = document.getElementById('listaCarrito');
+        const elemento = document.createElement('li');
+        elemento.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+        listaCarrito.appendChild(elemento);
+
+        // Incrementar el contador de ítems en el carrito
+        totalItemsCarrito++;
+        // Actualizar visualmente el contador de ítems en el icono del carrito
+        actualizarContadorCarrito();
+
+        // Mostrar notificación Toastify
+        mostrarNotificacion(`Se ha añadido ${item.nombre} al carrito.`);
+    }
+
+    // Agregar evento a los botones de agregar al carrito
+    const productos = document.querySelectorAll('.agregar-carrito');
+    productos.forEach(producto => {
+        producto.addEventListener('click', function(event) {
+            const boton = event.target;
+            const nombre = boton.dataset.nombre;
+            const precio = parseFloat(boton.dataset.precio);
+
+            // Añadir producto al carrito
+            const item = { nombre, precio };
+            agregarItemAlCarrito(item);
+        });
+    });
 });
